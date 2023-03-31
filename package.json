@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prepare": "husky install",
     "prettier:check": "prettier --config ./.prettierrc --check \"{components, pages, styles}/**/*{.js, .ts,.html,.scss, .css}\"",
-    "prettier:fix": "prettier --config ./.prettierrc --write \"{components, pages, styles}/**/*{.js, .ts,.html,.scss, .css}\""
+    "prettier:fix": "prettier --config ./.prettierrc --write \"{components, pages, styles}/**/*{.js, .ts,.html,.scss, .css}\"",
+    "commit-checks": "npm run lint && npm run prettier:fix"
   },
   "dependencies": {
     "@types/node": "18.15.11",
