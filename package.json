@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/node": "18.15.11",
@@ -21,6 +22,7 @@
     "typescript": "5.0.2"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
     "prettier": "2.8.7",
     "sass": "^1.60.0"
   }

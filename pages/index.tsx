@@ -7,7 +7,6 @@ import heroImage from '../public/assets/images/bg_home.jpg';
 
 const Home = () => {
  
-
   return (
     <Layout>
       <div className={styles.homeContainer}>
