@@ -29,5 +29,8 @@
     "lint-staged": "^13.2.0",
     "prettier": "2.8.7",
     "sass": "^1.60.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
