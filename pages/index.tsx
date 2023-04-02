@@ -1,5 +1,7 @@
 import styles from './Home.module.scss';
 
+import Link from 'next/link';
+
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
 
@@ -16,9 +18,11 @@ const Home = () => {
           <div className={`${styles.heroText} px-3`}>
             <h1>World Travel Quiz</h1>
             <h5>We wish you an enjoyable game</h5>
-            <button type="button" className={`btn btn-primary mt-3 ${styles.customButton}`}>
-              Start Game
-            </button>
+            <Link href="/question/1">
+              <button type="button" className={`btn btn-primary mt-3 ${styles.customButton}`}>
+                Start Game
+              </button>
+            </Link>
           </div>
         </div>
       </div>
