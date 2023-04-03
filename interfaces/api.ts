@@ -6,7 +6,8 @@ export interface Question {
   id: number;
   text: string;
   choices: Choice[];
-  answer: string;
+  correctAnswer: string;
+  answerDescription: string;
 }
 export interface Questions {
   [key: string]: Question;

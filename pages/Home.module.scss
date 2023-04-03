@@ -13,7 +13,8 @@
         font-weight: 300;
       }
       .customButton {
-        background-color: #07419e;
+        background-color: var(--wtq-blue-dark);
+        border: none;
         &:hover {
           background-color: #3c82f3;
         }

@@ -13,26 +13,30 @@ export const dbQuestions: Questions = {
       { id: 1, text: 'Maldive' },
       { id: 2, text: 'Azore' },
     ],
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    correctAnswer: 'Maldive',
+    answerDescription:
+      'MALDIVE Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
   },
   '2': {
     id: 2,
     text: 'Care este cel mai aglomerat drum din lume?',
     choices: [
-      { id: 1, text: 'drumul spre servici' },
-      { id: 2, text: 'drumul spre casa' },
+      { id: 1, text: 'Drumul spre servici' },
+      { id: 2, text: 'Drumul spre casa' },
     ],
-    answer:
-      'Hodor. Hodor hodor, hodor. Hodor hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor. Hodor. Hodor hodor; hodor hodor - hodor, hodor, hodor hodor.',
+    correctAnswer: 'Drumul spre servici',
+    answerDescription:
+      'DRUMUL SPRE SERVICI Hodor. Hodor hodor, hodor. Hodor hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor. Hodor. Hodor hodor; hodor hodor - hodor, hodor, hodor hodor.',
   },
   '3': {
     id: 3,
-    text: 'Unde se afla turnul Bin Ben?',
+    text: 'Unde se afla turnul Big Ben?',
     choices: [
       { id: 1, text: 'Timisoara' },
       { id: 2, text: 'Londra' },
     ],
-    answer: 'Londra',
+    correctAnswer: 'Londra',
+    answerDescription:
+      'LONDRA Lorem Ipsum is the single greatest threat. We are not - we are not keeping up with other websites. Lorem Ipsum best not make any more threats to your website. ',
   },
 };

@@ -1,13 +1,33 @@
+import { useEffect, useState } from 'react';
 import styles from './Home.module.scss';
 
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
 
+import { QuestionAnswer } from '@/interfaces/question';
+
 import heroImage from '../public/assets/images/bg_home.jpg';
 
 const Home = () => {
+  const router = useRouter();
+  const [results, setResults] = useState<QuestionAnswer | null>(null);
+
+  useEffect(() => {
+    const storageResults = sessionStorage.getItem('results');
+    if (storageResults) {
+      setResults(JSON.parse(storageResults));
+    }
+  }, []);
+
+  const handleClick = () => {
+    if (results) {
+      sessionStorage.clear();
+    }
+    router.push('/question/1');
+  };
+
   return (
     <Layout>
       <div className={styles.homeContainer}>
@@ -17,12 +37,18 @@ const Home = () => {
         >
           <div className={`${styles.heroText} px-3`}>
             <h1>World Travel Quiz</h1>
-            <h5>We wish you an enjoyable game</h5>
-            <Link href="/question/1">
-              <button type="button" className={`btn btn-primary mt-3 ${styles.customButton}`}>
-                Start Game
-              </button>
-            </Link>
+            <h5>
+              {results
+                ? `Congratulations, you answered ${results.right} questions correctly!`
+                : 'We wish you an enjoyable game'}
+            </h5>
+            <button
+              type="button"
+              className={`btn btn-primary mt-3 ${styles.customButton}`}
+              onClick={handleClick}
+            >
+              {results ? 'New Start' : 'Start Game'}
+            </button>
           </div>
         </div>
       </div>

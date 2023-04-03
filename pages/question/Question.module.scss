@@ -1,7 +1,11 @@
+@mixin movingBackground {
+  height: 100%;
+  z-index: 2;
+}
+
 .question {
   position: relative;
   .questionContainer {
-    // grid-template-columns: repeat(2, auto);
     width: 100%;
     height: 100%;
     padding: 0 10rem;
@@ -27,7 +31,7 @@
           font-size: 6rem;
         }
         h2 {
-          width: 21.875rem;
+          width: 20rem;
           font-size: 2rem;
         }
       }
@@ -53,5 +57,41 @@
         }
       }
     }
+    .percentageRow {
+      .percentage {
+        .rightPercentage,
+        .falsePercentage {
+          width: 25rem;
+          height: 3rem;
+          background-color: #fff;
+          color: #fff;
+          p {
+            font-size: 1.125rem;
+          }
+        }
+        .rightPercentage {
+          .movingBackgroundRight {
+            width: 5rem;
+            background-color: var(--wtq-red);
+            @include movingBackground;
+          }
+        }
+        .falsePercentage {
+          .movingBackgroundLeft {
+            width: 5rem;
+            background-color: var(--wtq-green-dark);
+            @include movingBackground;
+          }
+        }
+      }
+    }
+  }
+  .nextButton {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1rem;
+    background-color: var(--wtq-blue-dark);
+    opacity: 0.9;
   }
 }
