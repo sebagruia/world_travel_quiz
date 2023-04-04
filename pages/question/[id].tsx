@@ -8,7 +8,6 @@ import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
 import ModalWarning from '@/components/ModalWarning/modalWarning';
 
-import heroImage from '../../public/assets/images/lh-1.jpg';
 import nextIcon from '../../public/assets/svg/b_next.svg';
 
 import { Choice, Question } from '@/interfaces/api';
@@ -93,7 +92,7 @@ const Question: FC<IProps> = ({ question }) => {
   return (
     <Layout>
       <div className={styles.question}>
-        {<HeroImage imagePath={heroImage} />}
+        {<HeroImage imagePath={question.backgoundImage} />}
         <div
           className={`d-flex flex-column justify-content-between position-absolute top-0 left-0 py-5 ${styles.questionContainer}`}
         >

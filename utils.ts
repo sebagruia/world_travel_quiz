@@ -16,6 +16,7 @@ export const dbQuestions: Questions = {
     correctAnswer: 'Maldive',
     answerDescription:
       'MALDIVE Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    backgoundImage: '/assets/images/lh-1.jpg',
   },
   '2': {
     id: 2,
@@ -27,6 +28,7 @@ export const dbQuestions: Questions = {
     correctAnswer: 'Drumul spre servici',
     answerDescription:
       'DRUMUL SPRE SERVICI Hodor. Hodor hodor, hodor. Hodor hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor; hodor hodor hodor. Hodor. Hodor hodor; hodor hodor - hodor, hodor, hodor hodor.',
+    backgoundImage: '/assets/images/lh-2.jpg',
   },
   '3': {
     id: 3,
@@ -37,6 +39,7 @@ export const dbQuestions: Questions = {
     ],
     correctAnswer: 'Londra',
     answerDescription:
-      'LONDRA Lorem Ipsum is the single greatest threat. We are not - we are not keeping up with other websites. Lorem Ipsum best not make any more threats to your website. ',
+      'LONDRA Lorem Ipsum is the single greatest threat. We are not - we are not keeping up with other websites. Lorem Ipsum best not make any more threats to your website.',
+    backgoundImage: '/assets/images/lh-3.jpg',
   },
 };

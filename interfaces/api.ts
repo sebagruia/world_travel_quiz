@@ -8,6 +8,7 @@ export interface Question {
   choices: Choice[];
   correctAnswer: string;
   answerDescription: string;
+  backgoundImage: string;
 }
 export interface Questions {
   [key: string]: Question;

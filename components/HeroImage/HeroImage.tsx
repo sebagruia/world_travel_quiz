@@ -1,16 +1,17 @@
 import { FC } from 'react';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 import styles from './HeroImage.module.scss';
 interface IProps {
-  imagePath: StaticImageData;
+  imagePath: string;
 }
 
 const HeroImage: FC<IProps> = ({ imagePath }) => {
   return (
     <div className={styles.heroImageContainer}>
       <Image
+        priority
         src={imagePath}
         className={styles.heroImage}
         alt="alta imagine"

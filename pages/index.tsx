@@ -8,8 +8,6 @@ import Layout from '@/components/Layout/Layout';
 
 import { QuestionAnswer } from '@/interfaces/question';
 
-import heroImage from '../public/assets/images/bg_home.jpg';
-
 const Home = () => {
   const router = useRouter();
   const [results, setResults] = useState<QuestionAnswer | null>(null);
@@ -31,7 +29,7 @@ const Home = () => {
   return (
     <Layout>
       <div className={styles.homeContainer}>
-        {<HeroImage imagePath={heroImage} />}
+        {<HeroImage imagePath="/assets/images/bg_home.jpg" />}
         <div
           className={`d-flex justify-content-center align-items-start align-items-sm-center position-absolute top-0 left-0 ${styles.textContainer}`}
         >
