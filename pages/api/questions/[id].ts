@@ -5,9 +5,9 @@ import { Question } from '../../../interfaces/api';
 import { dbQuestions } from '../../../utils';
 
 const getQuestion = (req: NextApiRequest, res: NextApiResponse<Question>) => {
-  const { questionId } = req.query;
-  if (typeof questionId === 'string' && questionId) {
-    res.status(200).send(dbQuestions[questionId]);
+  const { id } = req.query;
+  if (typeof id === 'string' && id) {
+    res.status(200).send(dbQuestions[id]);
   }
 };
 

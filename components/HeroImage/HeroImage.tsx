@@ -11,7 +11,6 @@ const HeroImage: FC<IProps> = ({ imagePath }) => {
   return (
     <div className={styles.heroImageContainer}>
       <Image
-        priority
         src={imagePath}
         className={styles.heroImage}
         alt="alta imagine"
