@@ -199,8 +199,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: any) {
+  const { id } = context.params;
   try {
-    const { id } = context.params;
     const data = await fetch(`${path}/api/questions/${id}`, {
       method: 'GET',
       headers: {
