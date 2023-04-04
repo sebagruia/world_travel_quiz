@@ -178,10 +178,10 @@ const Question: FC<IProps> = ({ question }) => {
 
 export async function getStaticPaths() {
   try {
-    const data = await fetch(`${path}/api/questions`, {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions`, {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': `${path}`,
+        'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
         'Content-Type': 'application/json',
       },
     });
@@ -201,10 +201,10 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: any) {
   const { id } = context.params;
   try {
-    const data = await fetch(`${path}/api/questions/${id}`, {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`, {
       method: 'GET',
       headers: {
-        'Access-Control-Allow-Origin': `${path}`,
+        'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
         'Content-Type': 'application/json',
       },
     });
@@ -213,7 +213,7 @@ export async function getStaticProps(context: any) {
       props: { question },
     };
   } catch (error) {
-    console.log(`${path}/api/questions/${id}`);
+    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`);
     return error;
   }
 }

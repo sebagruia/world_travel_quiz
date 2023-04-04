@@ -1,8 +1,8 @@
 import { Questions } from './interfaces/api';
 
 // API utils
-const dev = process.env.NODE_ENV !== 'production';
-export const path = dev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_BASE_URL;
+// const dev = process.env.NODE_ENV !== 'production';
+// export const path = dev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_BASE_URL;
 
 // DB
 export const dbQuestions: Questions = {
