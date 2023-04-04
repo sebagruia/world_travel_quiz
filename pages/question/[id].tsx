@@ -177,35 +177,43 @@ const Question: FC<IProps> = ({ question }) => {
 };
 
 export async function getStaticPaths() {
-  const data = await fetch(`${path}/api/questions`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const questions = await data.json();
-  const questionsParams = Object.keys(questions).map((item) => {
-    return { params: { id: item } };
-  });
+  try {
+    const data = await fetch(`${path}/api/questions`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const questions = await data.json();
+    const questionsParams = Object.keys(questions).map((item) => {
+      return { params: { id: item } };
+    });
 
-  return {
-    paths: questionsParams,
-    fallback: false,
-  };
+    return {
+      paths: questionsParams,
+      fallback: false,
+    };
+  } catch (error) {
+    return error;
+  }
 }
 
 export async function getStaticProps(context: any) {
-  const { id } = context.params;
-  const data = await fetch(`${path}/api/questions/${id}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  const question = await data.json();
-  return {
-    props: { question },
-  };
+  try {
+    const { id } = context.params;
+    const data = await fetch(`${path}/api/questions/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const question = await data.json();
+    return {
+      props: { question },
+    };
+  } catch (error) {
+    return error;
+  }
 }
 
 export default Question;
