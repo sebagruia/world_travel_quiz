@@ -12,10 +12,6 @@ interface IProps {
 }
 
 const Layout: FC<IProps> = ({ children }) => {
-  // const fetchAnswers = async ()=>{
-  //   const response = fetch
-  // }
-
   return (
     <Container fluid className={styles.container}>
       <Head>

@@ -1,3 +1,5 @@
+@use '../styles/variables.scss' as *;
+
 .homeContainer {
   position: relative;
   .textContainer {
@@ -6,14 +8,20 @@
     .heroText {
       text-align: center;
       color: #fff;
+      @media all and (max-width: $small) {
+        padding-top: 5rem;
+      }
       h1 {
         font-size: 6rem;
+        @media all and (max-width: $small) {
+          font-size: 4rem;
+        }
       }
       h5 {
         font-weight: 300;
       }
       .customButton {
-        background-color: var(--wtq-blue-dark);
+        background-color: $wtq-blue-dark;
         border: none;
         &:hover {
           background-color: #3c82f3;

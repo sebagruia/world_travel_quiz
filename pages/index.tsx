@@ -33,7 +33,7 @@ const Home = () => {
       <div className={styles.homeContainer}>
         {<HeroImage imagePath={heroImage} />}
         <div
-          className={`d-flex justify-content-center align-items-center position-absolute top-0 left-0 ${styles.textContainer}`}
+          className={`d-flex justify-content-center align-items-start align-items-sm-center position-absolute top-0 left-0 ${styles.textContainer}`}
         >
           <div className={`${styles.heroText} px-3`}>
             <h1>World Travel Quiz</h1>

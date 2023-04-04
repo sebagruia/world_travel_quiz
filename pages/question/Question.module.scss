@@ -1,3 +1,5 @@
+@use '../../styles//variables.scss' as *;
+
 @mixin movingBackground {
   height: 100%;
   z-index: 2;
@@ -9,10 +11,31 @@
     width: 100%;
     height: 100%;
     padding: 0 10rem;
+    @media all and (min-width: 375px) and (max-width: $medium) {
+      padding: 0 3rem;
+    }
+    @media all and (max-width: $extraSmallPlus) {
+      padding: 0 1.5rem;
+    }
+
     .infoRow {
+      @media all and (max-width: $largePlus) {
+        justify-content: center;
+      }
+      @media all and (min-width: $largePlus) {
+        justify-content: space-between;
+      }
+      @media all and (max-width: $small) {
+        flex-direction: column;
+      }
       .questionText {
         max-width: 25rem;
         color: #fff;
+        @media all and (max-width: $small) {
+          flex-direction: column;
+          align-items: center;
+        }
+
         .navigator {
           display: flex;
           width: 10rem;
@@ -24,7 +47,7 @@
             opacity: 0.7;
           }
           .fill {
-            background-color: var(--wtq-green);
+            background-color: $wtq-green;
           }
         }
         h1 {
@@ -38,26 +61,45 @@
       .questionAnswerContainer {
         max-width: 25rem;
         padding: 0;
+        @media all and (max-width: $small) {
+          max-width: 100%;
+          padding-top: 2rem;
+        }
         .questionAnswer {
-          background-color: var(--header-backgorund);
+          background-color: $header-backgorund;
           .header {
-            background-color: var(--wtq-green-dark);
+            background-color: $wtq-green-dark;
             color: #fff;
           }
         }
       }
     }
     .choiceRow {
+      @media all and (max-width: $large) {
+        margin-bottom: 30%;
+      }
+      @media all and (min-width: $large) {
+        margin-bottom: 5%;
+      }
       .questionChoices {
         .customButton {
           width: 25rem;
           border-radius: 0;
           font-weight: 600;
-          color: var(--wtq-blue-dark);
+          color: $wtq-blue-dark;
+          @media all and (max-width: $extra-large) {
+            width: 15rem;
+          }
         }
       }
     }
     .percentageRow {
+      @media all and (max-width: $large) {
+        margin-bottom: 30%;
+      }
+      @media all and (min-width: $large) {
+        margin-bottom: 5%;
+      }
       .percentage {
         .rightPercentage,
         .falsePercentage {
@@ -65,6 +107,9 @@
           height: 3rem;
           background-color: #fff;
           color: #fff;
+          @media all and (max-width: $extra-large) {
+            width: 15rem;
+          }
           p {
             font-size: 1.125rem;
           }
@@ -72,14 +117,17 @@
         .rightPercentage {
           .movingBackgroundRight {
             width: 5rem;
-            background-color: var(--wtq-red);
+            background-color: $wtq-red;
             @include movingBackground;
           }
         }
         .falsePercentage {
+          @media all and (max-width: $extra-large) {
+            margin-top: 2rem;
+          }
           .movingBackgroundLeft {
             width: 5rem;
-            background-color: var(--wtq-green-dark);
+            background-color: $wtq-green-dark;
             @include movingBackground;
           }
         }
@@ -91,7 +139,7 @@
     top: 50%;
     right: 0;
     padding: 1rem;
-    background-color: var(--wtq-blue-dark);
+    background-color: $wtq-blue-dark;
     opacity: 0.9;
   }
 }

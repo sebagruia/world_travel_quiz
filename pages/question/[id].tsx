@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
+import ModalWarning from '@/components/ModalWarning/modalWarning';
 
 import heroImage from '../../public/assets/images/lh-1.jpg';
 import nextIcon from '../../public/assets/svg/b_next.svg';
@@ -23,8 +24,8 @@ const Question: FC<IProps> = ({ question }) => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [results, setResults] = useState<QuestionAnswer | null>(null);
-
   const { id } = router.query;
+  const [showModal, setShowModal] = useState(id && results?.currentQuestionId == id ? true : false);
 
   useEffect(() => {
     const storageResults = sessionStorage.getItem('results');
@@ -33,11 +34,26 @@ const Question: FC<IProps> = ({ question }) => {
     }
   }, [checked]);
 
+  const handleClickNext = () => {
+    setChecked(false);
+    if (id && typeof id === 'string' && id < '3') {
+      router.push(`/question/${parseInt(id) + 1}`);
+    } else {
+      router.push(`/`);
+    }
+  };
+
+  const handleModal = () => {
+    setShowModal((prevState) => !prevState);
+    handleClickNext();
+  };
+
   const handleClickButton = (event: MouseEvent<HTMLButtonElement>) => {
     if (id && results?.currentQuestionId == id) {
-      router.push(`/question/${parseInt(id) + 1}`);
+      setShowModal(!showModal);
       return;
     }
+
     if (results) {
       if (event.currentTarget.name === question.correctAnswer) {
         sessionStorage.setItem(
@@ -74,15 +90,6 @@ const Question: FC<IProps> = ({ question }) => {
     setChecked(true);
   };
 
-  const handleClickNext = () => {
-    setChecked(false);
-    if (id && typeof id === 'string' && id < '3') {
-      router.push(`/question/${parseInt(id) + 1}`);
-    } else {
-      router.push(`/`);
-    }
-  };
-
   return (
     <Layout>
       <div className={styles.question}>
@@ -90,7 +97,8 @@ const Question: FC<IProps> = ({ question }) => {
         <div
           className={`d-flex flex-column justify-content-between position-absolute top-0 left-0 py-5 ${styles.questionContainer}`}
         >
-          <div className={`row ${styles.infoRow} justify-content-between`}>
+          <ModalWarning show={showModal} handleClick={handleModal} />
+          <div className={`row ${styles.infoRow}`}>
             <div className={`${styles.questionText} col`}>
               <div className={styles.navigator}>
                 <div
@@ -122,7 +130,7 @@ const Question: FC<IProps> = ({ question }) => {
           {!checked && (
             <div className={`row ${styles.choiceRow}`}>
               <div
-                className={`${styles.questionChoices} col d-flex align-items-end justify-content-between`}
+                className={`${styles.questionChoices} col d-flex align-items-center align-items-lg-end justify-content-center justify-content-lg-between flex-column flex-lg-row`}
               >
                 {Object.values(question.choices).map((item: Choice) => (
                   <button
@@ -142,7 +150,7 @@ const Question: FC<IProps> = ({ question }) => {
             <Fragment>
               <div className={`row ${styles.percentageRow}`}>
                 <div
-                  className={`${styles.percentage} col d-flex align-items-end justify-content-between`}
+                  className={`${styles.percentage} col d-flex align-items-center  align-items-lg-end justify-content-center justify-content-lg-between flex-column flex-lg-row`}
                 >
                   <div className={styles.rightPercentage}>
                     <div className={styles.movingBackgroundRight}></div>
