@@ -190,7 +190,7 @@ export async function getStaticPaths() {
       return { params: { id: item } };
     });
     return {
-      paths: questionsParams,
+      paths: [...questionsParams],
       fallback: false,
     };
   } catch (error) {
