@@ -213,6 +213,7 @@ export async function getStaticProps(context: any) {
       props: { question },
     };
   } catch (error) {
+    console.log(`${path}/api/questions/${id}`);
     return error;
   }
 }
