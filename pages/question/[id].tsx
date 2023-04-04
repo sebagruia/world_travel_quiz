@@ -13,8 +13,6 @@ import nextIcon from '../../public/assets/svg/b_next.svg';
 import { Choice, Question } from '@/interfaces/api';
 import { QuestionAnswer } from '@/interfaces/question';
 
-import { path } from '../../utils';
-
 interface IProps {
   question: Question;
 }
