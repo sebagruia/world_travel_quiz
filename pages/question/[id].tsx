@@ -177,6 +177,7 @@ const Question: FC<IProps> = ({ question }) => {
 };
 
 export async function getStaticPaths() {
+  console.log(`${path}/api/questions`);
   try {
     const data = await fetch(`${path}/api/questions`, {
       method: 'GET',
