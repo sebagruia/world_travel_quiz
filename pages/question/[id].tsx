@@ -188,7 +188,6 @@ export async function getStaticPaths() {
     const questionsParams = Object.keys(questions).map((item) => {
       return { params: { id: item } };
     });
-
     return {
       paths: questionsParams,
       fallback: false,
