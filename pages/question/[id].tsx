@@ -181,6 +181,7 @@ export async function getStaticPaths() {
     const data = await fetch(`${path}/api/questions`, {
       method: 'GET',
       headers: {
+        'Access-Control-Allow-Origin': `${path}`,
         'Content-Type': 'application/json',
       },
     });
@@ -204,6 +205,7 @@ export async function getStaticProps(context: any) {
     const data = await fetch(`${path}/api/questions/${id}`, {
       method: 'GET',
       headers: {
+        'Access-Control-Allow-Origin': `${path}`,
         'Content-Type': 'application/json',
       },
     });
