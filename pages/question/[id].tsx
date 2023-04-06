@@ -1,4 +1,4 @@
-import { FC, Fragment, MouseEvent, useEffect, useState } from 'react';
+import { Fragment, MouseEvent, useEffect, useState } from 'react';
 import styles from './Question.module.scss';
 
 import Image from 'next/image';
@@ -13,16 +13,36 @@ import nextIcon from '../../public/assets/svg/b_next.svg';
 import { Choice, Question } from '@/interfaces/api';
 import { QuestionAnswer } from '@/interfaces/question';
 
-interface IProps {
-  question: Question;
-}
-
-const Question: FC<IProps> = ({ question }) => {
+const Question = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [results, setResults] = useState<QuestionAnswer | null>(null);
+  const [question, setQuestion] = useState<Question | null>(null);
   const { id } = router.query;
   const [showModal, setShowModal] = useState(id && results?.currentQuestionId == id ? true : false);
+  console.log(router);
+
+  const getQuestionObj = async () => {
+    try {
+      const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`, {
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      const question = await data.json();
+      if (question) {
+        setQuestion(question);
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getQuestionObj();
+  }, [id]);
 
   useEffect(() => {
     const storageResults = sessionStorage.getItem('results');
@@ -52,7 +72,7 @@ const Question: FC<IProps> = ({ question }) => {
     }
 
     if (results) {
-      if (event.currentTarget.name === question.correctAnswer) {
+      if (event.currentTarget.name === question?.correctAnswer) {
         sessionStorage.setItem(
           'results',
           JSON.stringify({
@@ -72,7 +92,7 @@ const Question: FC<IProps> = ({ question }) => {
         );
       }
     } else {
-      if (event.currentTarget.name === question.correctAnswer) {
+      if (event.currentTarget.name === question?.correctAnswer) {
         sessionStorage.setItem(
           'results',
           JSON.stringify({ right: 1, wrong: 0, currentQuestionId: id })
@@ -90,7 +110,7 @@ const Question: FC<IProps> = ({ question }) => {
   return (
     <Layout>
       <div className={styles.question}>
-        {<HeroImage imagePath={question.backgoundImage} />}
+        {<HeroImage imagePath={question ? question.backgoundImage : ''} />}
         <div
           className={`d-flex flex-column justify-content-between position-absolute top-0 left-0 py-5 ${styles.questionContainer}`}
         >
@@ -100,15 +120,15 @@ const Question: FC<IProps> = ({ question }) => {
               <div className={styles.navigator}>
                 <div
                   id="1"
-                  className={`${styles.dot} me-1 ${question.id === 1 && styles.fill}`}
+                  className={`${styles.dot} me-1 ${question?.id === 1 && styles.fill}`}
                 ></div>
                 <div
                   id="2"
-                  className={`${styles.dot} me-1  ${question.id === 2 && styles.fill}`}
+                  className={`${styles.dot} me-1  ${question?.id === 2 && styles.fill}`}
                 ></div>
-                <div id="3" className={`${styles.dot} ${question.id === 3 && styles.fill}`}></div>
+                <div id="3" className={`${styles.dot} ${question?.id === 3 && styles.fill}`}></div>
               </div>
-              {!checked && <h2 className="pt-2">{question.text}</h2>}
+              {!checked && <h2 className="pt-2">{question?.text}</h2>}
             </div>
             {checked && (
               <div className={`col ${styles.questionAnswerContainer}`}>
@@ -117,7 +137,7 @@ const Question: FC<IProps> = ({ question }) => {
                     <h3 className="mb-0">Answer</h3>
                   </div>
                   <div className={`${styles.answer} d-flex align-items-center p-4`}>
-                    <p>{question.answerDescription}</p>
+                    <p>{question?.answerDescription}</p>
                   </div>
                 </div>
               </div>
@@ -129,16 +149,17 @@ const Question: FC<IProps> = ({ question }) => {
               <div
                 className={`${styles.questionChoices} col d-flex align-items-center align-items-lg-end justify-content-center justify-content-lg-between flex-column flex-lg-row`}
               >
-                {Object.values(question.choices).map((item: Choice) => (
-                  <button
-                    onClick={(event) => handleClickButton(event)}
-                    name={item.text}
-                    className={`btn btn-light btn-lg mt-3 ${styles.customButton}`}
-                    key={item.id}
-                  >
-                    {item.text}
-                  </button>
-                ))}
+                {question &&
+                  Object.values(question.choices).map((item: Choice) => (
+                    <button
+                      onClick={(event) => handleClickButton(event)}
+                      name={item.text}
+                      className={`btn btn-light btn-lg mt-3 ${styles.customButton}`}
+                      key={item.id}
+                    >
+                      {item.text}
+                    </button>
+                  ))}
               </div>
             </div>
           )}
@@ -173,47 +194,5 @@ const Question: FC<IProps> = ({ question }) => {
     </Layout>
   );
 };
-
-export async function getStaticPaths() {
-  try {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions`, {
-      method: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    const questions = await data.json();
-    const questionsParams = Object.keys(questions).map((item) => {
-      return { params: { id: item } };
-    });
-    return {
-      paths: questionsParams,
-      fallback: false,
-    };
-  } catch (error) {
-    return error;
-  }
-}
-
-export async function getStaticProps(context: any) {
-  const { id } = context.params;
-  try {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`, {
-      method: 'GET',
-      headers: {
-        'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    const question = await data.json();
-    return {
-      props: { question },
-    };
-  } catch (error) {
-    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`);
-    return error;
-  }
-}
 
 export default Question;
