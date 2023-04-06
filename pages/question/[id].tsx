@@ -3,6 +3,7 @@ import styles from './Question.module.scss';
 
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import useSWR, { Fetcher } from 'swr';
 
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
@@ -17,14 +18,12 @@ const Question = () => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [results, setResults] = useState<QuestionAnswer | null>(null);
-  const [question, setQuestion] = useState<Question | null>(null);
   const { id } = router.query;
   const [showModal, setShowModal] = useState(id && results?.currentQuestionId == id ? true : false);
-  console.log(router);
 
-  const getQuestionObj = async () => {
+  const getQuestionObj = async (url: string) => {
     try {
-      const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`, {
+      const data = await fetch(url, {
         method: 'GET',
         headers: {
           'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_BASE_URL}`,
@@ -32,17 +31,18 @@ const Question = () => {
         },
       });
       const question = await data.json();
-      if (question) {
-        setQuestion(question);
-      }
+      return question;
     } catch (error) {
       return error;
     }
   };
 
-  useEffect(() => {
-    getQuestionObj();
-  }, [id]);
+  const fetcher: Fetcher<Question, string> = (url) => getQuestionObj(url);
+
+  const { data, error } = useSWR(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/questions/${id}`,
+    fetcher
+  );
 
   useEffect(() => {
     const storageResults = sessionStorage.getItem('results');
@@ -72,7 +72,7 @@ const Question = () => {
     }
 
     if (results) {
-      if (event.currentTarget.name === question?.correctAnswer) {
+      if (event.currentTarget.name === data?.correctAnswer) {
         sessionStorage.setItem(
           'results',
           JSON.stringify({
@@ -92,7 +92,7 @@ const Question = () => {
         );
       }
     } else {
-      if (event.currentTarget.name === question?.correctAnswer) {
+      if (event.currentTarget.name === data?.correctAnswer) {
         sessionStorage.setItem(
           'results',
           JSON.stringify({ right: 1, wrong: 0, currentQuestionId: id })
@@ -107,10 +107,13 @@ const Question = () => {
     setChecked(true);
   };
 
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
+
   return (
     <Layout>
       <div className={styles.question}>
-        {<HeroImage imagePath={question ? question.backgoundImage : ''} />}
+        {<HeroImage imagePath={data ? data.backgoundImage : ''} />}
         <div
           className={`d-flex flex-column justify-content-between position-absolute top-0 left-0 py-5 ${styles.questionContainer}`}
         >
@@ -118,17 +121,14 @@ const Question = () => {
           <div className={`row ${styles.infoRow}`}>
             <div className={`${styles.questionText} col`}>
               <div className={styles.navigator}>
-                <div
-                  id="1"
-                  className={`${styles.dot} me-1 ${question?.id === 1 && styles.fill}`}
-                ></div>
+                <div id="1" className={`${styles.dot} me-1 ${data?.id === 1 && styles.fill}`}></div>
                 <div
                   id="2"
-                  className={`${styles.dot} me-1  ${question?.id === 2 && styles.fill}`}
+                  className={`${styles.dot} me-1  ${data?.id === 2 && styles.fill}`}
                 ></div>
-                <div id="3" className={`${styles.dot} ${question?.id === 3 && styles.fill}`}></div>
+                <div id="3" className={`${styles.dot} ${data?.id === 3 && styles.fill}`}></div>
               </div>
-              {!checked && <h2 className="pt-2">{question?.text}</h2>}
+              {!checked && <h2 className="pt-2">{data?.text}</h2>}
             </div>
             {checked && (
               <div className={`col ${styles.questionAnswerContainer}`}>
@@ -137,7 +137,7 @@ const Question = () => {
                     <h3 className="mb-0">Answer</h3>
                   </div>
                   <div className={`${styles.answer} d-flex align-items-center p-4`}>
-                    <p>{question?.answerDescription}</p>
+                    <p>{data?.answerDescription}</p>
                   </div>
                 </div>
               </div>
@@ -149,8 +149,9 @@ const Question = () => {
               <div
                 className={`${styles.questionChoices} col d-flex align-items-center align-items-lg-end justify-content-center justify-content-lg-between flex-column flex-lg-row`}
               >
-                {question &&
-                  Object.values(question.choices).map((item: Choice) => (
+                {data &&
+                  data.choices &&
+                  Object.values(data.choices).map((item: Choice) => (
                     <button
                       onClick={(event) => handleClickButton(event)}
                       name={item.text}
