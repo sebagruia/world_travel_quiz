@@ -8,6 +8,7 @@ import useSWR, { Fetcher } from 'swr';
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
 import ModalWarning from '@/components/ModalWarning/modalWarning';
+import LoadSpinner from '@/components/LoadSpinner/loadSpinner';
 
 import nextIcon from '../../public/assets/svg/b_next.svg';
 
@@ -108,7 +109,7 @@ const Question = () => {
   };
 
   if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  if (!data) return <LoadSpinner />;
 
   return (
     <Layout>
