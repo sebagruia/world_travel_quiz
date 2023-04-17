@@ -14,8 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"],
+      "@/apollo/*": ["apollo/*"],
+      "@/styles/*": ["styles/*"],
+      "@/graphql/*": ["graphql/*"],
+      "@/interfaces/*": ["interfaces/*"],
+      "@/public/*": ["public/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

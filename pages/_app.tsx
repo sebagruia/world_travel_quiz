@@ -1,15 +1,22 @@
 import '@/styles/globals.css';
+import { ApolloProvider } from '@apollo/client';
 
-import {Inter} from 'next/font/google'
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"]})
+import client from '@/apollo/client';
+
+const inter = Inter({ subsets: ['latin'] });
 
 import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
+    <ApolloProvider client={client}>
+      <main className={inter.className}>
+        <Component {...pageProps} />
+      </main>
+    </ApolloProvider>
   );
-}
+};
+
+export default App;
