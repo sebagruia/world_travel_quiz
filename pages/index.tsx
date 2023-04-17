@@ -23,7 +23,7 @@ const Home = () => {
     if (results) {
       sessionStorage.clear();
     }
-    router.push('/question/1');
+    router.push('/question/0');
   };
 
   return (
@@ -53,5 +53,15 @@ const Home = () => {
     </Layout>
   );
 };
+
+// const getStaticProps = async () => {
+//   const client = new ApolloClient({
+//     uri: 'https://api.spacex.land/graphql/',
+//     cache: new InMemoryCache(),
+//   });
+//   return {
+//     props: {},
+//   };
+// };
 
 export default Home;

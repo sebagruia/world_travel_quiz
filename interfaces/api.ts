@@ -3,7 +3,8 @@ export interface Choice {
   text: string;
 }
 export interface Question {
-  id: number;
+  id: string;
+  name: string;
   text: string;
   choices: Choice[];
   correctAnswer: string;
