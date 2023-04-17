@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
+import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -8,13 +8,14 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyAAukbW8EnMbD_yDSy1Ej8WkHHZ8kMFkaI',
-  authDomain: 'world-travel-quiz-15c7c.firebaseapp.com',
-  projectId: 'world-travel-quiz-15c7c',
-  storageBucket: 'world-travel-quiz-15c7c.appspot.com',
-  messagingSenderId: '682813224661',
-  appId: '1:682813224661:web:662101962f24449160545c',
-  measurementId: 'G-0NSS3MN7TN',
+  apiKey: `${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}`,
+  databaseURL: `${process.env.NEXT_PUBLIC_REST_API_URL}`,
+  projectId: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}`,
+  storageBucket: 'world-travel-quiz-73d14.appspot.com',
+  messagingSenderId: '441458452096',
+  appId: '1:441458452096:web:8dd119fa024690d74ea865',
+  measurementId: 'G-Q19GGTPNRZ',
 };
 
 // Initialize Firebase
