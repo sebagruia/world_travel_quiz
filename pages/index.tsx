@@ -54,14 +54,4 @@ const Home = () => {
   );
 };
 
-// const getStaticProps = async () => {
-//   const client = new ApolloClient({
-//     uri: 'https://api.spacex.land/graphql/',
-//     cache: new InMemoryCache(),
-//   });
-//   return {
-//     props: {},
-//   };
-// };
-
 export default Home;

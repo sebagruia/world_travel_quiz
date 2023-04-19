@@ -11,7 +11,7 @@ const typeDefs = gql`
     id: ID!
     text: String!
     name: String!
-    choices: [Choice!]
+    choices: [Choice!]!
     correctAnswer: String!
     answerDescription: String!
     backgoundImage: String!
