@@ -1,10 +1,11 @@
-import { Fragment, MouseEvent, useEffect, useState } from 'react';
+import { FC, Fragment, MouseEvent, useEffect, useState } from 'react';
 import styles from './Question.module.scss';
 
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { useQuery } from '@apollo/client';
+import { initializeApollo } from '@/apollo/client';
+import { QUESTION, QUESTIONS } from '../../graphqlQueries';
 
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
@@ -15,27 +16,16 @@ import nextIcon from '../../public/assets/svg/b_next.svg';
 import { Choice, Question } from '@/interfaces/api';
 import { QuestionAnswer } from '@/interfaces/question';
 
-import { QUESTION } from 'graphqlQueries';
+interface IProps {
+  question: Question;
+}
 
-const QuestionPage = () => {
+const QuestionPage: FC<IProps> = ({ question }) => {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const [results, setResults] = useState<QuestionAnswer | null>(null);
-  const [question, setQuestion] = useState<Question | null>(null);
   const { id } = router.query;
   const [showModal, setShowModal] = useState(id && results?.currentQuestionId == id ? true : false);
-
-  const { loading, error, data } = useQuery(QUESTION, {
-    variables: {
-      id: id,
-    },
-  });
-
-  useEffect(() => {
-    if (data) {
-      setQuestion(data.question);
-    }
-  }, [data]);
 
   useEffect(() => {
     const storageResults = sessionStorage.getItem('results');
@@ -99,9 +89,6 @@ const QuestionPage = () => {
     }
     setChecked(true);
   };
-
-  if (error) return <div>Failed to load</div>;
-  if (loading) return <LoadSpinner />;
 
   return (
     <Layout>
@@ -193,6 +180,33 @@ const QuestionPage = () => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticPaths = async () => {
+  const apolloClient = initializeApollo();
+  const data = await apolloClient.query({
+    query: QUESTIONS,
+  });
+  const questionPaths = data.data.questions.map((item: any) => ({
+    params: { id: item.id },
+  }));
+  return {
+    paths: questionPaths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }: any) => {
+  const apolloClient = initializeApollo();
+  const data = await apolloClient.query({
+    query: QUESTION,
+    variables: {
+      id: params.id,
+    },
+  });
+  return {
+    props: { question: data.data.question },
+  };
 };
 
 export default QuestionPage;
