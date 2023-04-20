@@ -9,7 +9,6 @@ import { QUESTION, QUESTIONS } from '../../graphqlQueries';
 
 import HeroImage from '@/components/HeroImage/HeroImage';
 import Layout from '@/components/Layout/Layout';
-import LoadSpinner from '@/components/LoadSpinner/loadSpinner';
 import ModalWarning from '@/components/ModalWarning/modalWarning';
 import nextIcon from '../../public/assets/svg/b_next.svg';
 
@@ -102,16 +101,16 @@ const QuestionPage: FC<IProps> = ({ question }) => {
             <div className={`${styles.questionText} col`}>
               <div className={styles.navigator}>
                 <div
+                  id="0"
+                  className={`${styles.dot} me-1 ${question?.id === '0' && styles.fill}`}
+                ></div>
+                <div
                   id="1"
-                  className={`${styles.dot} me-1 ${question?.id === '1' && styles.fill}`}
+                  className={`${styles.dot} me-1  ${question?.id === '1' && styles.fill}`}
                 ></div>
                 <div
                   id="2"
-                  className={`${styles.dot} me-1  ${question?.id === '2' && styles.fill}`}
-                ></div>
-                <div
-                  id="3"
-                  className={`${styles.dot} ${question?.id === '3' && styles.fill}`}
+                  className={`${styles.dot} ${question?.id === '2' && styles.fill}`}
                 ></div>
               </div>
               {!checked && <h2 className="pt-2">{question?.text}</h2>}
